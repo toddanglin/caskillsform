@@ -112,7 +112,7 @@ if [ -e "$DEPLOYMENT_SOURCE/package.json" ]; then
 fi
 
 # 3. Build Angular project
-if [ -e "$DEPLOYMENT_SOURCE/package.json" ]; then
+if [ -e "$DEPLOYMENT_SOURCE/angular.json" ]; then
   cd "$DEPLOYMENT_SOURCE"
   eval ./node_modules/@angular/cli/bin/ng build --prod=true eval $NPM_CMD install
   exitWithMessageOnError "npm build failed"
