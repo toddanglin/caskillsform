@@ -17,7 +17,7 @@
     <app-spinner class="fade" *ngIf="!roster || !roster.length || roster.length <= 0"></app-spinner>
     <ng-multiselect-dropdown *ngIf="roster && roster.length && roster.length > 0" [placeholder]="'Select alias'"
       [(data)]="roster" [(ngModel)]="selectedAlias" [settings]="rosterDropdownSettings" [disabled]="isLoading"
-      (onSelect)="onAliasSelect($event)" (onDeSelect)="onAliasDeselect($event)">
+      (onSelect)="onAliasSelect($event)" (onDeSelect)="onAliasDeselect($event)" tabindex="0">
     </ng-multiselect-dropdown>
     <p *ngIf="!primaryTechValid" class="has-text-danger">
         Please select your alias
@@ -36,7 +36,7 @@
     <ng-multiselect-dropdown
       *ngIf="programmingLanguages && programmingLanguages.length && programmingLanguages.length > 0"
       [placeholder]="'Select primary languages'" [(data)]="programmingLanguages" [(ngModel)]="selectedPrimaryLangs"
-      [settings]="langDropdownSettings" [disabled]="isLoading">
+      [settings]="langDropdownSettings" [disabled]="isLoading || selectedAlias.length === 0" tabindex="0">
     </ng-multiselect-dropdown>
     <p *ngIf="!primaryLangValid" class="has-text-danger">
         Please choose at least one primary programming language
@@ -52,7 +52,7 @@
     <ng-multiselect-dropdown
       *ngIf="programmingLanguages && programmingLanguages.length && programmingLanguages.length > 0"
       [placeholder]="'Select secondary languages'" [(data)]="programmingLanguages" [(ngModel)]="selectedSecondaryLangs"
-      [settings]="langDropdownSettings" [disabled]="isLoading">
+      [settings]="langDropdownSettings" [disabled]="isLoading || selectedAlias.length === 0" tabindex="0">
     </ng-multiselect-dropdown>
   </div>
   <div class="box">
@@ -67,7 +67,7 @@
     <app-spinner class="fade" *ngIf="!techFocuses || !techFocuses.length || techFocuses.length <= 0"></app-spinner>
     <ng-multiselect-dropdown *ngIf="techFocuses && techFocuses.length && techFocuses.length > 0"
       [placeholder]="'Select primary focuses'" [(data)]="techFocuses" [(ngModel)]="selectedPrimaryTech"
-      [settings]="techDropdownSettings" [disabled]="isLoading">
+      [settings]="techDropdownSettings" [disabled]="isLoading || selectedAlias.length === 0" tabindex="0">
     </ng-multiselect-dropdown>
     <p *ngIf="!primaryTechValid" class="has-text-danger">
       Please choose at least one primary technical focus area
@@ -81,13 +81,13 @@
     <app-spinner class="fade" *ngIf="!techFocuses || !techFocuses.length || techFocuses.length <= 0"></app-spinner>
     <ng-multiselect-dropdown *ngIf="techFocuses && techFocuses.length && techFocuses.length > 0"
       [placeholder]="'Select secondary focuses'" [(data)]="techFocuses" [(ngModel)]="selectedSecondaryTech"
-      [settings]="techDropdownSettings" [disabled]="isLoading">
+      [settings]="techDropdownSettings" [disabled]="isLoading || selectedAlias.length === 0" tabindex="0">
     </ng-multiselect-dropdown>
   </div>
-  <button class="button is-primary is-large" (click)="submitForm()" [class.is-loading]="isLoading">Submit</button>
+  <button class="button is-primary is-large" (click)="submitForm()" [class.is-loading]="isLoading" tabindex="0">Save</button>
 </div>
 <div class="notification is-primary is-overlay has-shadow" [class.is-danger]="!isSuccess" *ngIf="isMessageVisible">
-  <button class="delete" (click)="hideMessage()"></button>
+  <button class="delete" (click)="hideMessage()" tabindex="0"></button>
   <h3 *ngIf="isSuccess" class="title">Got it!</h3>
   <h3 *ngIf="!isSuccess" class="title">Oops.</h3>
   <p>
