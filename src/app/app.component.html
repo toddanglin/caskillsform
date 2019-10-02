@@ -14,6 +14,7 @@
   <div class="box">
     <h2 class="title">Alias</h2>
     <p>First, we need to know who you are! Please select your Microsoft alias:</p>
+    <app-spinner class="fade" *ngIf="!roster || !roster.length || roster.length <= 0"></app-spinner>
     <ng-multiselect-dropdown *ngIf="roster && roster.length && roster.length > 0" [placeholder]="'Select alias'"
       [(data)]="roster" [(ngModel)]="selectedAlias" [settings]="rosterDropdownSettings" [disabled]="isLoading"
       (onSelect)="onAliasSelect($event)" (onDeSelect)="onAliasDeselect($event)">
@@ -27,9 +28,11 @@
     <h3 class="title is-4">Primary Programming Languages</h3>
     <p>Please select the programming languages you consider your <strong>primary</strong> focus. These
       should be programming languages you'd feel comfortable using to do a talk at a conference on short notice. 
+      Focus on the language(s) that represent the developer community where you are most active.
       It is okay to only pick 1. 
     </p>
     <p>Choose <b>up to</b> 3</p>
+    <app-spinner class="fade" *ngIf="!programmingLanguages || !programmingLanguages.length || programmingLanguages.length <= 0"></app-spinner>
     <ng-multiselect-dropdown
       *ngIf="programmingLanguages && programmingLanguages.length && programmingLanguages.length > 0"
       [placeholder]="'Select primary languages'" [(data)]="programmingLanguages" [(ngModel)]="selectedPrimaryLangs"
@@ -42,9 +45,10 @@
     <h3 class="title is-4">Secondary Programming Languages</h3>
     <p>(Optional) Select the programming languages you have past experience using OR are actively learning. These should be
       programming languages you <i>could</i>
-      use, but are not comfortable enough to do a conference talk or troubleshoot a customer issue.
+      use, but are not necessarily active in the developer community today. It is okay to pick 0.
     </p>
     <p>Choose <b>up to</b> 3</p>
+    <app-spinner class="fade" *ngIf="!programmingLanguages || !programmingLanguages.length || programmingLanguages.length <= 0"></app-spinner>
     <ng-multiselect-dropdown
       *ngIf="programmingLanguages && programmingLanguages.length && programmingLanguages.length > 0"
       [placeholder]="'Select secondary languages'" [(data)]="programmingLanguages" [(ngModel)]="selectedSecondaryLangs"
@@ -53,13 +57,14 @@
   </div>
   <div class="box">
     <h2 class="title">Technical Focus Areas</h2>
-    <p>For the next two questions, focus on technologies where you have active practical experience. For this data to be useful, we do not need to 
-      capture every technology you've heard of or used once in the past. Think about the technologies you are capable of covering as a Cloud Advocate today.</p>
+    <p>For the next two questions, focus on technology topics where you have active practical experience. For this data to be useful, we do not need to 
+      capture every technology topic you've heard of or used once in the past. Think about the technology topics you are capable of covering as a Cloud Advocate today.</p>
     <h3 class="title is-4">Primary Technical Focus Areas</h3>
-    <p>Select your <b>primary</b> technical focus areas. These should be technical focuses where you have a 300 or 400 level of
-      experience and comfort. Your knowledge and experience are current.
+    <p>Select your <b>primary</b> technical focus areas. These should be technical topics where you have a 300 or 400 level of
+      experience and comfort. Your knowledge and experience are current. These should be topics that you are "known for" as an Advocate.
     </p>
-    <p>No limit, but choose...wisely</p>
+    <p>No limit, but really limit to your primary area(s) of expertise</p>
+    <app-spinner class="fade" *ngIf="!techFocuses || !techFocuses.length || techFocuses.length <= 0"></app-spinner>
     <ng-multiselect-dropdown *ngIf="techFocuses && techFocuses.length && techFocuses.length > 0"
       [placeholder]="'Select primary focuses'" [(data)]="techFocuses" [(ngModel)]="selectedPrimaryTech"
       [settings]="techDropdownSettings" [disabled]="isLoading">
@@ -69,11 +74,11 @@
     </p>
 
     <h3 class="title is-4">Secondary Technical Focus Areas</h3>
-    <p>(Optional) Select your secondary technical focus areas. These should be technical focuses where you have some previous
-      experience OR are actively learning and
-      ramping-up. These should be areas you'd feel comfortable giving a talk if you had a few months to prepare.
+    <p>(Optional) Select your secondary technical focus areas. These should be topics you are not necessarily "known for," but you have a meaningful 
+      amount of experience OR are actively focusing on growing your expertise now. It is okay to pick 0.
     </p>
     <p>No limit, but you know the drill</p>
+    <app-spinner class="fade" *ngIf="!techFocuses || !techFocuses.length || techFocuses.length <= 0"></app-spinner>
     <ng-multiselect-dropdown *ngIf="techFocuses && techFocuses.length && techFocuses.length > 0"
       [placeholder]="'Select secondary focuses'" [(data)]="techFocuses" [(ngModel)]="selectedSecondaryTech"
       [settings]="techDropdownSettings" [disabled]="isLoading">
