@@ -101,10 +101,9 @@ selectNodeVersion () {
 echo Handling node.js deployment.
 
 # 4. Deploy to wwwroot
-echo "Deployment Target"
-echo $DEPLOYMENT_TARGET
-echo "Deployment Source"
-echo $DEPLOYMENT_SOURCE
+echo "Deployment Target: $DEPLOYMENT_TARGET"
+echo "Deployment Source: $DEPLOYMENT_SOURCE"
+echo "Node version: $NODE_EXE -v"
 
 # 1. Select node version
 selectNodeVersion
@@ -115,7 +114,7 @@ echo Node deployed successfully.
 if [ -e "$DEPLOYMENT_SOURCE/package.json" ]; then
   echo "Installing deployment source modules..."
   cd "$DEPLOYMENT_SOURCE"
-  # eval rm -rf node_modules
+  eval rm -rf node_modules
   eval $NPM_CMD install
   exitWithMessageOnError "npm failed"
   cd - > /dev/null
@@ -124,6 +123,7 @@ fi
 # 3. Build Angular project
 if [ -e "$DEPLOYMENT_SOURCE/angular.json" ]; then
   echo "Building Angular project..."
+  echo "Node version: $NODE_EXE -v"
   cd "$DEPLOYMENT_SOURCE"
   eval ./node_modules/@angular/cli/bin/ng build --prod=true eval $NPM_CMD install
   exitWithMessageOnError "npm build failed"
