@@ -40,7 +40,7 @@ export class AppComponent implements OnInit {
         roster.forEach((value, i) => {
           this.roster.push({
             item_id: value.id,
-            item_text: value.fields['Microsoft Email Alias']
+            item_text: value.alias
           });
         });
       });
@@ -50,7 +50,7 @@ export class AppComponent implements OnInit {
         langs.forEach((value, i) => {
           this.programmingLanguages.push({
             item_id: value.id,
-            item_text: value.fields.Name
+            item_text: value.name
           });
         });
       });
@@ -60,7 +60,7 @@ export class AppComponent implements OnInit {
         techs.forEach((value, i) => {
           this.techFocuses.push({
             item_id: value.id,
-            item_text: value.fields.Name
+            item_text: value.name
           });
         });
       });
@@ -138,23 +138,23 @@ export class AppComponent implements OnInit {
 
     this.rosterSvc.getTechnicalFocusesByAlias(alias)
       .then((skills) => {
-        if (skills.fields['Primary Languages'] !== undefined) {
-          this.selectedPrimaryLangs = skills.fields['Primary Languages'].map((v) => {
+        if (skills.primaryLangs !== undefined) {
+          this.selectedPrimaryLangs = skills.primaryLangs.map((v) => {
             return this.programmingLanguages.find((p) => p.item_id === v);
           });
         }
-        if (skills.fields['Secondary Languages'] !== undefined) {
-          this.selectedSecondaryLangs = skills.fields['Secondary Languages'].map((v) => {
+        if (skills.secondaryLangs !== undefined) {
+          this.selectedSecondaryLangs = skills.secondaryLangs.map((v) => {
             return this.programmingLanguages.find((p) => p.item_id === v);
           });
         }
-        if (skills.fields['Primary Technology Areas'] !== undefined) {
-          this.selectedPrimaryTech = skills.fields['Primary Technology Areas'].map((v) => {
+        if (skills.primaryTech !== undefined) {
+          this.selectedPrimaryTech = skills.primaryTech.map((v) => {
             return this.techFocuses.find((p) => p.item_id === v);
           });
         }
-        if (skills.fields['Secondary Technology Areas'] !== undefined) {
-          this.selectedSecondaryTech = skills.fields['Secondary Technology Areas'].map((v) => {
+        if (skills.secondaryTech !== undefined) {
+          this.selectedSecondaryTech = skills.secondaryTech.map((v) => {
             return this.techFocuses.find((p) => p.item_id === v);
           });
         }
