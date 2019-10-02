@@ -101,11 +101,14 @@ selectNodeVersion () {
 echo Handling node.js deployment.
 
 # 4. Deploy to wwwroot
-if [ "$IN_PLACE_DEPLOYMENT" -ne "1" ]; then
+if [ "$IN_PLACE_DEPLOYMENT" -ne 1 ]; then
   "$KUDU_SYNC_CMD" -v 50 -f "$DEPLOYMENT_SOURCE" -t "$DEPLOYMENT_TARGET" \
                 -n "$NEXT_MANIFEST_PATH" -p "$PREVIOUS_MANIFEST_PATH" \
                 -i "e2e;node_modules;functions;src;.angular.json;.deployment;.gitignore;az.ps1;deploy.sh; \                              
                 package.json;README.md;tsconfig.json;"
+  exitWithMessageOnError "Kudu Sync failed"
+  cd - > /dev/null
+fi
 
 # 1. Select node version
 selectNodeVersion
@@ -127,12 +130,6 @@ if [ -e "$DEPLOYMENT_TARGET/angular.json" ]; then
   cd "$DEPLOYMENT_TARGET"
   eval ./node_modules/@angular/cli/bin/ng build --prod=true eval $NPM_CMD install
   exitWithMessageOnError "npm build failed"
-  cd - > /dev/null
-fi
-
-
-
-  exitWithMessageOnError "Kudu Sync failed"
   cd - > /dev/null
 fi
 
