@@ -115,7 +115,7 @@ echo Node deployed successfully.
 if [ -e "$DEPLOYMENT_SOURCE/package.json" ]; then
   echo "Installing deployment source modules..."
   cd "$DEPLOYMENT_SOURCE"
-  eval rm -r node_modules
+  eval rm -rf node_modules
   eval $NPM_CMD install
   exitWithMessageOnError "npm failed"
   cd - > /dev/null
