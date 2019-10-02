@@ -105,14 +105,6 @@ echo "Deployment Target"
 echo $DEPLOYMENT_TARGET
 echo "Deployment Source"
 echo $DEPLOYMENT_SOURCE
-if [ "$IN_PLACE_DEPLOYMENT" != "1" ]; then
-  "$KUDU_SYNC_CMD" -v 50 -f "$DEPLOYMENT_SOURCE" -t "$DEPLOYMENT_TARGET" \
-                -n "$NEXT_MANIFEST_PATH" -p "$PREVIOUS_MANIFEST_PATH" \
-                -i "e2e;node_modules;functions;src;.angular.json;.deployment;.gitignore;az.ps1;deploy.sh; \                              
-                package.json;README.md;tsconfig.json;"
-  exitWithMessageOnError "Kudu Sync failed"
-  cd - > /dev/null
-fi
 
 # 1. Select node version
 selectNodeVersion
@@ -120,20 +112,31 @@ selectNodeVersion
 echo Node deployed successfully.
 
 # 2. Install modules
-if [ -e "$DEPLOYMENT_TARGET/package.json" ]; then
+if [ -e "$DEPLOYMENT_SOURCE/package.json" ]; then
   echo "Installing deployment source modules..."
-  cd "$DEPLOYMENT_TARGET"
+  cd "$DEPLOYMENT_SOURCE"
+  eval rm -r node_modules
   eval $NPM_CMD install
   exitWithMessageOnError "npm failed"
   cd - > /dev/null
 fi
 
 # 3. Build Angular project
-if [ -e "$DEPLOYMENT_TARGET/angular.json" ]; then
+if [ -e "$DEPLOYMENT_SOURCE/angular.json" ]; then
   echo "Building Angular project..."
-  cd "$DEPLOYMENT_TARGET"
+  cd "$DEPLOYMENT_SOURCE"
   eval ./node_modules/@angular/cli/bin/ng build --prod=true eval $NPM_CMD install
   exitWithMessageOnError "npm build failed"
+  cd - > /dev/null
+fi
+
+
+if [ "$IN_PLACE_DEPLOYMENT" != "1" ]; then
+  "$KUDU_SYNC_CMD" -v 50 -f "$DEPLOYMENT_SOURCE/dist/ca-skils-form" -t "$DEPLOYMENT_TARGET" \
+                -n "$NEXT_MANIFEST_PATH" -p "$PREVIOUS_MANIFEST_PATH" \
+                -i "e2e;node_modules;functions;src;.angular.json;.deployment;.gitignore;az.ps1;deploy.sh; \                              
+                package.json;README.md;tsconfig.json;"
+  exitWithMessageOnError "Kudu Sync failed"
   cd - > /dev/null
 fi
 
