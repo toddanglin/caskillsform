@@ -1,4 +1,6 @@
-# CaSkilsForm
+# Cloud Advocate Skills Form
+
+This project contains the source for the website and Azure Functions that power the Cloud Advocate skills inventory.
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.5.
 
