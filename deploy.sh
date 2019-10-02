@@ -104,6 +104,7 @@ echo Handling node.js deployment.
 echo "Deployment Target: $DEPLOYMENT_TARGET"
 echo "Deployment Source: $DEPLOYMENT_SOURCE"
 echo "Node version: $NODE_EXE -v"
+echo "npm version: $NPM_CMD -v"
 
 # 1. Select node version
 selectNodeVersion
