@@ -101,7 +101,11 @@ selectNodeVersion () {
 echo Handling node.js deployment.
 
 # 4. Deploy to wwwroot
-if [ "$IN_PLACE_DEPLOYMENT" -ne 1 ]; then
+echo "Deployment Target"
+echo $DEPLOYMENT_TARGET
+echo "Deployment Source"
+echo $DEPLOYMENT_SOURCE
+if [ "$IN_PLACE_DEPLOYMENT" != "1" ]; then
   "$KUDU_SYNC_CMD" -v 50 -f "$DEPLOYMENT_SOURCE" -t "$DEPLOYMENT_TARGET" \
                 -n "$NEXT_MANIFEST_PATH" -p "$PREVIOUS_MANIFEST_PATH" \
                 -i "e2e;node_modules;functions;src;.angular.json;.deployment;.gitignore;az.ps1;deploy.sh; \                              
@@ -116,8 +120,8 @@ selectNodeVersion
 echo Node deployed successfully.
 
 # 2. Install modules
-echo "Installing deployment source modules..."
 if [ -e "$DEPLOYMENT_TARGET/package.json" ]; then
+  echo "Installing deployment source modules..."
   cd "$DEPLOYMENT_TARGET"
   eval $NPM_CMD install
   exitWithMessageOnError "npm failed"
@@ -125,8 +129,8 @@ if [ -e "$DEPLOYMENT_TARGET/package.json" ]; then
 fi
 
 # 3. Build Angular project
-echo "Building Angular project..."
 if [ -e "$DEPLOYMENT_TARGET/angular.json" ]; then
+  echo "Building Angular project..."
   cd "$DEPLOYMENT_TARGET"
   eval ./node_modules/@angular/cli/bin/ng build --prod=true eval $NPM_CMD install
   exitWithMessageOnError "npm build failed"
