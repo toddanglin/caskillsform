@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "outDir": "dist",
+    "rootDir": "./",
+    "sourceMap": true,
+    "strict": false,
+    "moduleResolution": "node",
+    "importHelpers": false,
+    "target": "es6",
+    "typeRoots": [
+      "node_modules/@types"
+    ]
+  },
+  "exclude": [
+    "node_modules",
+    "typings"
+  ]
+}
