@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class TeamRosterService {
-  private functionKey = 'PMUSnS3KGjUlPKj3kO18I/BqzFbaNlFo5BOEeMNLuaLS9hCmVNvg6A==';
+  private functionKey = '$(airtableFunctionKey)';
   private apiUrlBase = 'https://ca-skillsform-airtable-api.azurewebsites.net/api';
 
   constructor(private httpClient: HttpClient) {
