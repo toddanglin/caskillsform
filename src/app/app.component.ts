@@ -27,7 +27,6 @@ export class AppComponent implements OnInit {
   techDropdownSettings = {};
 
   primaryTechValid = true;
-  primaryLangValid = true;
   aliasValid = true;
 
   constructor(private rosterSvc: TeamRosterService) {
@@ -99,10 +98,9 @@ export class AppComponent implements OnInit {
   public submitForm() {
     // Do some quick and dirty required form validation
     this.primaryTechValid = (this.selectedPrimaryTech.length <= 0) ? false : true;
-    this.primaryLangValid = (this.selectedPrimaryLangs.length <= 0) ? false : true;
     this.aliasValid = (this.selectedAlias.length <= 0) ? false : true;
 
-    if (!this.primaryTechValid || !this.primaryLangValid || !this.aliasValid) {
+    if (!this.primaryTechValid || !this.aliasValid) {
       return;
     }
 

@@ -55,10 +55,10 @@
   <div class="box">
     <h2 class="title">Programming Languages</h2>
     <h3 class="title is-4">Primary Programming Languages</h3>
-    <p>Please select the programming languages you consider your <strong>primary</strong> focus. These
+    <p>(Optional) Please select the programming languages you consider your <strong>primary</strong> focus. These
       should be programming languages you'd feel comfortable using to do a talk at a conference on short notice. 
-      Focus on the language(s) that represent the developer community where you are most active.
-      It is okay to only pick 1. 
+      Focus on the language(s) that represent the community where you are most active. If you do not focus on developers, 
+      it is okay skip this question. 
     </p>
     <p>Choose <b>up to</b> 3</p>
     <app-spinner class="fade" *ngIf="!programmingLanguages || !programmingLanguages.length || programmingLanguages.length <= 0"></app-spinner>
@@ -67,14 +67,11 @@
       [placeholder]="'Select primary languages'" [(data)]="programmingLanguages" [(ngModel)]="selectedPrimaryLangs"
       [settings]="langDropdownSettings" [disabled]="isLoading || selectedAlias.length === 0" tabindex="0">
     </ng-multiselect-dropdown>
-    <p *ngIf="!primaryLangValid" class="has-text-danger">
-        Please choose at least one primary programming language
-    </p>
 
     <h3 class="title is-4">Secondary Programming Languages</h3>
     <p>(Optional) Select the programming languages you have past experience using OR are actively learning. These should be
       programming languages you <i>could</i>
-      use, but are not necessarily active in the developer community today. It is okay to pick 0.
+      use, but are not necessarily active in the developer community today. It is okay to skip this question, too.
     </p>
     <p>Choose <b>up to</b> 3</p>
     <app-spinner class="fade" *ngIf="!programmingLanguages || !programmingLanguages.length || programmingLanguages.length <= 0"></app-spinner>
