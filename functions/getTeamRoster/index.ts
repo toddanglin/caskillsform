@@ -7,8 +7,8 @@ const httpTrigger: AzureFunction = async function(context: Context, req: HttpReq
 
     try {
         await base('Team Roster').select({
-            fields: ['CDA Name', 'Microsoft Email Alias','Active'],
-            sort: [{ field: 'CDA Name' }],
+            fields: ['CA Name', 'Microsoft Email Alias','Active'],
+            sort: [{ field: 'CA Name' }],
             filterByFormula: `Active=1`
         }).eachPage((records, fetchNextPage) => {
             // console.log('Got some team records', records);
@@ -16,7 +16,7 @@ const httpTrigger: AzureFunction = async function(context: Context, req: HttpReq
             records.forEach((value) => {
                 roster.push({
                     id: value.id,
-                    name: value.fields['CDA Name'],
+                    name: value.fields['CA Name'],
                     alias: value.fields['Microsoft Email Alias']
                 });
             });
